@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Κωνσταντίνος &amp; Συμέλα — 02.01.2027</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- Falling Christmas decor on the sides (holly + baubles) — populated by JS -->
+  <div id="decor" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero">Αρχική</a>
+    <a href="#story">Η Ιστορία μας</a>
+    <a href="#details">Λεπτομέρειες</a>
+    <a href="#rsvp">RSVP</a>
+    <a href="#party">Κουμπάροι</a>
+    <a href="#gallery">Φωτογραφίες</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" style="opacity:1;transform:none;max-width:100%;padding-top:6rem;">
+
+    <!-- Snowflakes (populated by JS) -->
+    <div id="snowflakes"></div>
+
+    <p class="hero-date">❄ &nbsp; 02 · 01 · 2027 &nbsp;·&nbsp; Θεσσαλονίκη, Ελλάδα &nbsp; ❄</p>
+
+    <h1 class="hero-names">
+      <em>Κωνσταντίνος</em>
+      <span class="hero-amp">&amp;</span>
+      <em>Συμέλα</em>
+    </h1>
+
+    <p class="hero-location">✦ &nbsp; Ιερός Ναός Αγίων Αναργύρων &amp; Αγίου Δημητρίου · Διαβατά &nbsp; ✦</p>
+
+    <!-- Countdown -->
+    <div id="countdown">
+      <div class="cd-unit"><span class="cd-num" id="cd-days">—</span><span class="cd-label">Ημέρες</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-hours">—</span><span class="cd-label">Ώρες</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-mins">—</span><span class="cd-label">Λεπτά</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-secs">—</span><span class="cd-label">Δευτερόλεπτα</span></div>
+    </div>
+
+    <!-- Hero photo -->
+    <div class="hero-photo">
+      <img src="Hero/hero.jpeg" alt="Κωνσταντίνος &amp; Συμέλα" />
+    </div>
+
+    <!-- Christmas divider -->
+    <div class="floral-divider" style="margin-top:3rem;">
+      <svg viewBox="0 0 260 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="18" x2="90" y2="18" stroke="#c9a84c" stroke-width="0.8" />
+        <circle cx="130" cy="18" r="5" fill="#9b2335" opacity="0.8" />
+        <ellipse cx="113" cy="10" rx="6" ry="9" transform="rotate(-25 113 10)" fill="#2a5c40" opacity="0.7" />
+        <ellipse cx="147" cy="10" rx="6" ry="9" transform="rotate(25 147 10)" fill="#2a5c40" opacity="0.7" />
+        <ellipse cx="113" cy="26" rx="6" ry="9" transform="rotate(25 113 26)" fill="#2a5c40" opacity="0.5" />
+        <ellipse cx="147" cy="26" rx="6" ry="9" transform="rotate(-25 147 26)" fill="#2a5c40" opacity="0.5" />
+        <line x1="170" y1="18" x2="260" y2="18" stroke="#c9a84c" stroke-width="0.8" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- OUR STORY -->
+  <section id="story">
+    <span class="section-label">❄ Πώς ξεκίνησε</span>
+    <h2 class="section-title">Η <em>Ιστορία</em> μας</h2>
+    <div class="story-text">
+      <p>Κάποιες ιστορίες αγάπης ξεκινούν με ένα βλέμμα… Η δική μας ξεκίνησε με έναν χορό!</p>
+      <p>Στους ήχους της ποντιακής παράδοσης στη Θεσσαλονίκη, οι δρόμοι μας συναντήθηκαν χωρίς να γνωρίζουμε πως εκείνη
+        η γνωριμία θα γινόταν η
+        αρχή της δικής μας ιστορίας. Σιγά σιγά, μέσα από τις συναντήσεις, τα χαμόγελα και τις κοινές μας στιγμές,
+        γεννήθηκε μια αγάπη που μεγάλωνε με κάθε μας βήμα.</p>
+      <p>Η θάλασσα έγινε κομμάτι της κοινής μας πορείας. Άλλοτε μας έφερνε κοντά κι άλλοτε μας κρατούσε μακριά, μα κάθε
+        απόσταση μάς έμαθε πως, όταν δύο καρδιές έχουν την ίδια πορεία, πάντα βρίσκουν τον δρόμο η μία προς την άλλη.
+        Από τις όμορφες αναμνήσεις στη Φολέγανδρο μέχρι την πρόταση γάμου στο μαγευτικό Παρίσι, κάθε στιγμή μάς έφερνε
+        πιο κοντά στον κοινό μας προορισμό.
+      </p>
+      <p>Και τώρα, στις 2 Ιανουαρίου 2027, ετοιμαζόμαστε να ανοίξουμε πανιά για το πιο όμορφο ταξίδι μας… αυτό της
+        κοινής μας ζωής.</p>
+      <p>Γιατί, τελικά, ο πιο όμορφος προορισμός δεν βρίσκεται σε κανέναν χάρτη, αλλά εκεί όπου δύο καρδιές αποφασίζουν
+        να ταξιδέψουν μαζί για πάντα.</p>
+    </div>
+  </section>
+
+  <!-- EVENT DETAILS -->
+  <section id="details">
+    <span class="section-label">❄ Ελάτε μαζί μας</span>
+    <h2 class="section-title">Λεπτομέρειες <em>Εκδήλωσης</em></h2>
+    <div class="details-grid">
+      <div class="detail-card">
+        <h3>Τελετή</h3>
+        <p>
+          <strong>Ημερομηνία</strong><br>Σάββατο, 2 Ιανουαρίου 2027<br><br>
+          <strong>Ώρα</strong><br>4:30 μ.μ.<br><br>
+          <strong>Τοποθεσία</strong><br>Ιερός Ναός Αγίων Αναργύρων &amp; Αγίου Δημητρίου<br>Αγίου Γεωργίου 18,
+          Διαβατά
+        </p>
+        <div class="detail-map">
+          <iframe src="https://www.google.com/maps?q=40.68852,22.85925&amp;hl=el&amp;z=17&amp;output=embed"
+            title="Χάρτης — Ιερός Ναός Αγίων Αναργύρων &amp; Αγίου Δημητρίου, Διαβατά" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          <a class="map-link" href="https://www.google.com/maps?q=40.68852,22.85925&amp;hl=el&amp;z=17" target="_blank"
+            rel="noopener">Άνοιγμα στους χάρτες</a>
+        </div>
+      </div>
+      <div class="detail-card">
+        <h3>Δεξίωση</h3>
+        <p>
+          <strong>Μετά την τελετή</strong><br>Αμέσως μετά<br><br>
+          <strong>Ενδυματολογικός κώδικας</strong><br>Επίσημο<br><br>
+          <strong>Τοποθεσία</strong><br>GRANDE SALLE<br>18ο χλμ Εθνικής Οδού Θεσσαλονίκης–Κιλκίς, Λητή
+        </p>
+        <div class="detail-map">
+          <iframe
+            src="https://www.google.com/maps?q=GRANDE+SALLE,+%CE%9B%CE%B7%CF%84%CE%AE,+%CE%98%CE%B5%CF%83%CF%83%CE%B1%CE%BB%CE%BF%CE%BD%CE%AF%CE%BA%CE%B7&amp;hl=el&amp;z=14&amp;output=embed"
+            title="Χάρτης — GRANDE SALLE, Λητή" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen></iframe>
+          <a class="map-link"
+            href="https://www.google.com/maps?q=GRANDE+SALLE,+%CE%9B%CE%B7%CF%84%CE%AE,+%CE%98%CE%B5%CF%83%CF%83%CE%B1%CE%BB%CE%BF%CE%BD%CE%AF%CE%BA%CE%B7&amp;hl=el&amp;z=14"
+            target="_blank" rel="noopener">Άνοιγμα στους χάρτες</a>
+        </div>
+      </div>
+      <div class="detail-card">
+        <h3>Προαιρετική λίστα γάμου</h3>
+        <!-- <p>
+          <strong>Δώρο γάμου</strong>
+          <!-- <br>Το μεγαλύτερο δώρο για εμάς είναι να γιορτάσουμε μαζί σας την αρχή της κοινής
+          μας ζωής. Οι θερμότερες ευχές σας θα μας συνοδεύουν σε κάθε μας βήμα.<br><br> -->
+        </p> -->
+        <button type="button" class="iban-btn" id="iban-toggle" data-reveal-target="iban-box"
+          data-show-label="Δείτε τον IBAN" data-hide-label="Απόκρυψη IBAN" aria-expanded="false"
+          aria-controls="iban-box">Δείτε τον IBAN</button>
+        <div class="iban-box" id="iban-box" hidden>
+          <span class="iban-value" id="iban-value">GR2401710770006077171705686</span>
+          <button type="button" class="iban-copy" id="iban-copy">Αντιγραφή</button>
+        </div>
+      </div>
+      <div class="detail-card">
+        <h3>Καλό να γνωρίζετε</h3>
+        <p>
+          <strong>Απάντηση έως</strong><br>30 Νοεμβρίου 2026<br><br>
+          <strong>Ερωτήσεις;</strong><br>Επικοινωνήστε μαζί μας — θα χαρούμε να σας ακούσουμε!
+        </p>
+        <div class="phone-wrap">
+          <button type="button" class="phone-btn" data-reveal-target="phone-numbers"
+            data-show-label="Τηλέφωνα επικοινωνίας" data-hide-label="Απόκρυψη" aria-expanded="false"
+            aria-controls="phone-numbers">Τηλέφωνα επικοινωνίας</button>
+          <div class="phone-box" id="phone-numbers" hidden>
+            <span class="phone-value">Συμέλα: <a class="phone-link" href="tel:+306900000000">695 544 1859</a></span>
+            <span class="phone-value">Κωνσταντίνος: <a class="phone-link" href="tel:+306900000000">698 238
+                6933</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section id="rsvp">
+    <span class="section-label">❄ Πρόσκληση</span>
+    <h2 class="section-title">Θα είστε <em>μαζί μας;</em></h2>
+    <div class="rsvp-wrap">
+      <!-- Honeypot: hidden from humans; if filled, the submission is dropped -->
+      <input type="text" id="r-company" name="company" class="honeypot" tabindex="-1" autocomplete="off"
+        aria-hidden="true" />
+      <div class="rsvp-grid">
+        <input type="text" placeholder="Ονοματεπώνυμο" id="r-name" />
+        <input type="email" placeholder="Διεύθυνση email" id="r-email" />
+      </div>
+
+      <select id="r-attend">
+        <option value="" disabled selected>Θα παρευρεθείτε;</option>
+        <option>Με χαρά θα παρευρεθώ</option>
+        <option>Δυστυχώς δεν θα μπορέσω</option>
+      </select>
+
+      <fieldset class="rsvp-fieldset">
+        <legend class="rsvp-legend">Συνοδός / Άτομα</legend>
+        <p class="rsvp-sub">Πόσα άτομα θα είστε συνολικά;</p>
+        <div class="allergy-grid">
+          <label class="allergy-option"><input type="radio" name="companion" value="Μόνος/μόνη μου" checked />
+            Μόνος/μόνη μου</label>
+          <label class="allergy-option"><input type="radio" name="companion" value="Με 1 συνοδό (+1)" /> Με 1 συνοδό
+            (+1)</label>
+          <label class="allergy-option"><input type="radio" name="companion" value="Με περισσότερα άτομα" /> Με
+            περισσότερα άτομα</label>
+        </div>
+        <input type="text" placeholder="Ονοματεπώνυμο συνοδού" id="r-companion-name" />
+        <input type="number" placeholder="Συνολικός αριθμός ατόμων (μαζί με εσάς)" id="r-group-count" min="3" max="12"
+          inputmode="numeric" />
+      </fieldset>
+
+      <select id="r-meal">
+        <option value="" disabled selected>Προτίμηση γεύματος</option>
+        <option>Set menu</option>
+        <option>Χορτοφαγικό</option>
+        <option>Βίγκαν</option>
+      </select>
+
+      <!-- Food allergies -->
+      <fieldset class="rsvp-fieldset">
+        <legend class="rsvp-legend">Τροφικές αλλεργίες</legend>
+        <p class="rsvp-sub">Σημειώστε όποια ισχύουν (παραλείψτε αν δεν έχετε)</p>
+        <div class="allergy-grid" id="allergy-list">
+          <label class="allergy-option"><input type="checkbox" name="allergy" value="Peanuts" /> Αράπικο φιστίκι</label>
+          <label class="allergy-option"><input type="checkbox" name="allergy" value="Tree nuts" /> Ξηροί καρποί</label>
+          <label class="allergy-option"><input type="checkbox" name="allergy" value="Milk / dairy" /> Γάλα,
+            γαλακτοκομικά</label>
+          <label class="allergy-option"><input type="checkbox" name="allergy" value="Eggs" /> Αυγά</label>
+          <label class="allergy-option"><input type="checkbox" name="allergy" value="Gluten / wheat" /> Γλουτένη,
+            σιτάρι</label>
+          <label class="allergy-option"><input type="checkbox" name="allergy" value="Soy" /> Σόγια</label>
+          <label class="allergy-option"><input type="checkbox" name="allergy" value="Fish" /> Ψάρια</label>
+          <label class="allergy-option"><input type="checkbox" name="allergy" value="Shellfish" /> Οστρακοειδή</label>
+          <label class="allergy-option"><input type="checkbox" name="allergy" value="Shrimp / prawns" /> Γαρίδες</label>
+          <label class="allergy-option"><input type="checkbox" name="allergy" value="Sesame" /> Σουσάμι</label>
+          <label class="allergy-option extra"><input type="checkbox" name="allergy" value="Celery" /> Σέλινο</label>
+          <label class="allergy-option extra"><input type="checkbox" name="allergy" value="Mustard" /> Μουστάρδα</label>
+          <label class="allergy-option extra"><input type="checkbox" name="allergy" value="Sulphites" /> Θειώδη</label>
+          <label class="allergy-option extra"><input type="checkbox" name="allergy" value="Lupin" /> Λούπινο</label>
+          <label class="allergy-option extra"><input type="checkbox" name="allergy" value="Molluscs" /> Μαλάκια</label>
+        </div>
+        <input type="text" placeholder="Άλλες αλλεργίες (διευκρινίστε)" id="r-allergy-other" />
+        <select id="r-allergy-severity">
+          <option value="" disabled selected>Πόσο σοβαρή είναι η αλλεργία;</option>
+          <option>Δυσανεξία — να αποφεύγεται αν είναι εφικτό</option>
+          <option>Σοβαρή — πρέπει να αποφεύγεται, προσοχή στην επιμόλυνση</option>
+          <option>Πολύ σοβαρή — φέρει φάρμακο (π.χ. EpiPen)</option>
+        </select>
+      </fieldset>
+
+      <textarea placeholder="Κάτι άλλο που πρέπει να γνωρίζουμε; (διατροφικές σημειώσεις, παιδιά, προσβασιμότητα…)"
+        rows="3" id="r-notes" style="resize:vertical;"></textarea>
+
+      <button class="rsvp-btn" onclick="submitRSVP()">Αποστολή απάντησης</button>
+      <p class="rsvp-privacy">Τα στοιχεία σας χρησιμοποιούνται αποκλειστικά για τον γάμο.</p>
+      <p id="rsvp-msg"></p>
+    </div>
+  </section>
+
+  <!-- WEDDING PARTY -->
+  <section id="party">
+    <span class="section-label">❄ Οι άνθρωποί μας</span>
+    <h2 class="section-title">Κουμπάροι</h2>
+    <div class="party-grid" id="party-grid">
+      <!-- Populated by script.js -->
+    </div>
+  </section>
+
+  <!-- PHOTO GALLERY -->
+  <section id="gallery">
+    <span class="section-label">❄ Αναμνήσεις</span>
+    <h2 class="section-title">Η <em>Συλλογή</em> μας</h2>
+    <div class="gallery-strip" id="gallery-strip">
+      <div class="gallery-track" id="gallery-track"></div>
+    </div>
+    <div class="gallery-controls">
+      <button type="button" class="gallery-playpause" id="gallery-playpause" aria-pressed="false">⏸ Παύση</button>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button type="button" class="lightbox-btn lightbox-close" id="lightbox-close" aria-label="Κλείσιμο">×</button>
+    <button type="button" class="lightbox-btn lightbox-prev" id="lightbox-prev"
+      aria-label="Προηγούμενη φωτογραφία">‹</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    <button type="button" class="lightbox-btn lightbox-next" id="lightbox-next"
+      aria-label="Επόμενη φωτογραφία">›</button>
+    <span class="lightbox-counter" id="lightbox-counter"></span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-names">Κωνσταντίνος &amp; Συμέλα</span>
+    <span class="footer-sub">02 · 01 · 2027 &nbsp;·&nbsp; Ιερός Ναός Αγίων Αναργύρων &amp; Αγίου Δημητρίου, Διαβατά,
+      Θεσσαλονίκη</span>
+    <div class="floral-divider" style="margin-top:1.5rem;">
+      <svg viewBox="0 0 260 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="18" x2="90" y2="18" stroke="#c9a84c" stroke-width="0.8" />
+        <circle cx="130" cy="18" r="5" fill="#9b2335" opacity="0.8" />
+        <ellipse cx="113" cy="10" rx="6" ry="9" transform="rotate(-25 113 10)" fill="#2a5c40" opacity="0.7" />
+        <ellipse cx="147" cy="10" rx="6" ry="9" transform="rotate(25 147 10)" fill="#2a5c40" opacity="0.7" />
+        <ellipse cx="113" cy="26" rx="6" ry="9" transform="rotate(25 113 26)" fill="#2a5c40" opacity="0.5" />
+        <ellipse cx="147" cy="26" rx="6" ry="9" transform="rotate(-25 147 26)" fill="#2a5c40" opacity="0.5" />
+        <line x1="170" y1="18" x2="260" y2="18" stroke="#c9a84c" stroke-width="0.8" />
+      </svg>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
