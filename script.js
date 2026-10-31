@@ -249,6 +249,10 @@ const galleryPhotos = [
   { src: 'Gallery/1b6ffc2b-1847-44c2-9e0f-4dfd0b443734.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
   { src: 'Gallery/baed04f3-efa4-4e43-9ecf-e715defd751a.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
   { src: 'Gallery/936a9dac-9121-466c-b87c-aeef0a93ad85.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
+  { src: 'Gallery/gallery-1.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
+  { src: 'Gallery/gallery-2.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
+  { src: 'Gallery/eae5ee3e-f46c-4cb9-89d4-8eac09a09b9a.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
+  { src: 'Gallery/8d47fec4-cccc-44dd-ab17-0e9b0b32084a.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
 ];
 
 const galleryTrack = document.getElementById('gallery-track');
