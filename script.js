@@ -39,6 +39,27 @@ function hollySVG() {
   </svg>`;
 }
 
+
+
+function dancingCoupleSVG() {
+  // Couple dancing (subtle silhouette)
+  return `<svg viewBox="0 0 120 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="currentColor">
+      <!-- partner A -->
+      <circle cx="42" cy="28" r="11"/>
+      <path d="M42 39 C30 44, 24 58, 28 74 L34 74 L36 58 L42 66 L48 58 L50 74 L56 74 C60 58, 54 44, 42 39 Z"/>
+      <path d="M34 74 L30 118 L38 118 L42 90 L46 118 L54 118 L50 74 Z"/>
+      <path d="M30 118 L26 150 L34 150 L38 118 Z M46 118 L50 150 L58 150 L54 118 Z" opacity="0.95"/>
+      <!-- partner B (dress) -->
+      <circle cx="74" cy="26" r="10"/>
+      <path d="M74 36 C64 40, 58 52, 60 66 L88 66 C90 52, 84 40, 74 36 Z"/>
+      <path d="M60 66 C54 92, 50 120, 48 150 L100 150 C98 120, 94 92, 88 66 Z" opacity="0.95"/>
+      <!-- joined hands -->
+      <path d="M54 64 C58 60, 62 60, 66 64" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </g>
+  </svg>`;
+}
+
 if (decorBox) {
   const total = 18;
   for (let i = 0; i < total; i++) {
@@ -59,6 +80,28 @@ if (decorBox) {
     el.style.animationDelay = (-Math.random() * 22).toFixed(1) + 's';
     el.style.setProperty('--decop', (Math.random() * 0.3 + 0.45).toFixed(2));
     decorBox.appendChild(el);
+  }
+
+  // Subtle animated dancing couples (very transparent) on the cream background
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const couples = [
+      { left: '6%',  bottom: '10%', width: 120, dur: 5.6, delay: 0,   op: 0.085 },
+      { right: '6%', bottom: '14%', width: 145, dur: 6.2, delay: -1.3, op: 0.08 },
+      { left: '18%', top: '38%',    width: 105, dur: 5.1, delay: -2.4, op: 0.07 },
+      { right: '20%', top: '55%',   width: 115, dur: 6.6, delay: -0.8, op: 0.075 },
+    ];
+    couples.forEach((c) => {
+      const el = document.createElement('span');
+      el.className = 'decor-scene decor-scene--couple';
+      el.innerHTML = dancingCoupleSVG();
+      el.style.width = `min(${c.width}px, ${Math.round(c.width / 6)}vw)`;
+      el.style.opacity = String(c.op);
+      el.style.animationDuration = `${c.dur}s`;
+      el.style.animationDelay = `${c.delay}s`;
+      if (c.left) el.style.left = c.left; else el.style.right = c.right;
+      if (c.top) el.style.top = c.top; else el.style.bottom = c.bottom;
+      decorBox.appendChild(el);
+    });
   }
 }
 

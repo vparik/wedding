@@ -242,6 +242,41 @@ nav a:hover {
   }
 }
 
+/* Subtle animated scenes on the light/cream background */
+.decor-scene {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.09;
+  color: #1a3d2b;
+  will-change: transform;
+}
+.decor-scene svg { display: block; width: 100%; height: auto; }
+.decor-scene--sleigh {
+  top: 16vh;
+  left: -34vw;
+  width: min(380px, 44vw);
+  animation: decorDrift 60s linear infinite;
+}
+.decor-scene--couple {
+  right: 5vw;
+  bottom: 10vh;
+  width: min(150px, 24vw);
+  transform-origin: 50% 100%;
+  animation: coupleDance 5.8s ease-in-out infinite;
+  opacity: 0.085;
+}
+@keyframes decorDrift {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(170vw); }
+}
+@keyframes coupleDance {
+  0%, 100% { transform: rotate(-2.5deg) translateY(0); }
+  25% { transform: rotate(2deg) translateY(-2px); }
+  50% { transform: rotate(-1.5deg) translateY(0); }
+  75% { transform: rotate(2.5deg) translateY(-2px); }
+}
+
 @media (max-width: 640px) {
   #decor {
     display: none;
