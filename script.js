@@ -338,33 +338,65 @@ if (galleryTrack && galleryStrip) {
     galleryTrack.style.animationDelay = `${-(progress * dur)}s`;
   };
 
+  let downFigIndex = null;
+  let activePointerId = null;
+
   galleryStrip.addEventListener('pointerdown', (e) => {
     if (e.button !== 0) return; // left click / primary touch only
     if (e.target.closest('button, a, input, select, textarea')) return;
+    const fig = e.target.closest('.gallery-photo');
+    downFigIndex = fig ? Number(fig.dataset.index) : null;
+    activePointerId = e.pointerId;
     isDragging = true;
     didDrag = false;
     dragStartClientX = e.clientX;
     dragStartX = currentTranslateX();
     dragX = dragStartX;
     galleryStrip.classList.add('dragging');
-    galleryStrip.setPointerCapture(e.pointerId);
-    galleryTrack.style.animationPlayState = 'paused';
   });
+
   galleryStrip.addEventListener('pointermove', (e) => {
-    if (!isDragging) return;
+    if (!isDragging || e.pointerId !== activePointerId) return;
     const dx = e.clientX - dragStartClientX;
-    if (Math.abs(dx) > 4) didDrag = true;
-    applyDragX(dragStartX + dx);
+    if (!didDrag && Math.abs(dx) > 8) {
+      didDrag = true;
+      try { galleryStrip.setPointerCapture(e.pointerId); } catch (_) {}
+    }
+    if (didDrag) {
+      applyDragX(dragStartX + dx);
+      if (e.cancelable) e.preventDefault();
+    }
   });
+
   const endDrag = (e) => {
-    if (!isDragging) return;
+    if (!isDragging || (activePointerId !== null && e.pointerId !== activePointerId)) return;
+    const wasDrag = didDrag;
+    const tappedIndex = downFigIndex;
     isDragging = false;
+    downFigIndex = null;
+    activePointerId = null;
     galleryStrip.classList.remove('dragging');
     try { galleryStrip.releasePointerCapture(e.pointerId); } catch (_) {}
-    resumeAutoScroll();
+    if (wasDrag) {
+      resumeAutoScroll();
+      didDrag = true; // suppress the trailing click
+      setTimeout(() => { didDrag = false; }, 0);
+    } else if (tappedIndex !== null && Number.isFinite(tappedIndex)) {
+      openLightbox(tappedIndex);
+      didDrag = true; // suppress any duplicate click
+      setTimeout(() => { didDrag = false; }, 0);
+    }
   };
   galleryStrip.addEventListener('pointerup', endDrag);
-  galleryStrip.addEventListener('pointercancel', endDrag);
+  galleryStrip.addEventListener('pointercancel', (e) => {
+    if (!isDragging || (activePointerId !== null && e.pointerId !== activePointerId)) return;
+    isDragging = false;
+    didDrag = false;
+    downFigIndex = null;
+    activePointerId = null;
+    galleryStrip.classList.remove('dragging');
+    try { galleryStrip.releasePointerCapture(e.pointerId); } catch (_) {}
+  });
 
   const playPause = document.getElementById('gallery-playpause');
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -401,8 +433,9 @@ if (galleryTrack && galleryStrip) {
   };
   const openLightbox = i => { if (!lightbox) return; showPhoto(i); lightbox.removeAttribute('hidden'); document.body.style.overflow = 'hidden'; };
   const closeLightbox = () => { if (!lightbox) return; lightbox.setAttribute('hidden', ''); document.body.style.overflow = ''; };
+  // Fallback (e.g., keyboard activation). Primary open path is pointerup tap handling above.
   galleryTrack.addEventListener('click', e => {
-    if (didDrag) { didDrag = false; return; }
+    if (didDrag) { e.preventDefault(); e.stopPropagation(); return; }
     const fig = e.target.closest('.gallery-photo');
     if (fig) openLightbox(Number(fig.dataset.index));
   });
