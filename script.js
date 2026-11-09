@@ -238,6 +238,7 @@ if (ibanCopy) {
 
 // ── GALLERY: auto-scrolling strip + lightbox ──
 const galleryPhotos = [
+  // Couple images (numbered)
   { src: 'Gallery/96c6a1db-6562-4672-b995-58b6ec42c610.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
   { src: 'Gallery/48e4b828-c7d1-4ee8-b8c6-6740a845e901.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
   { src: 'Gallery/0a6435ed-dbd3-48b2-9eae-0314c592c305.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
@@ -249,10 +250,11 @@ const galleryPhotos = [
   { src: 'Gallery/1b6ffc2b-1847-44c2-9e0f-4dfd0b443734.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
   { src: 'Gallery/baed04f3-efa4-4e43-9ecf-e715defd751a.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
   { src: 'Gallery/936a9dac-9121-466c-b87c-aeef0a93ad85.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
-  { src: 'Gallery/gallery-1.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
-  { src: 'Gallery/gallery-2.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
-  { src: 'Gallery/eae5ee3e-f46c-4cb9-89d4-8eac09a09b9a.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
-  { src: 'Gallery/8d47fec4-cccc-44dd-ab17-0e9b0b32084a.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
+  // Friends
+  { src: 'Gallery/agoria.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
+  { src: 'Gallery/agoria2.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
+  { src: 'Gallery/koritsia.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
+  { src: 'Gallery/koritsia2.jpg', alt: 'Κωνσταντίνος & Συμέλα' },
 ];
 
 const galleryTrack = document.getElementById('gallery-track');
@@ -327,6 +329,90 @@ if (galleryTrack && galleryStrip) {
       touchX = null;
     }, { passive: true });
   }
+}
+
+// ── BACKGROUND MUSIC ──
+const musicToggle = document.getElementById('music-toggle');
+const bgMusic = document.getElementById('bg-music');
+const musicVolume = document.getElementById('music-volume');
+if (musicToggle && bgMusic) {
+  const setVolume = (v) => {
+    const vol = Math.min(1, Math.max(0, Number(v)));
+    bgMusic.volume = vol;
+    if (musicVolume && String(musicVolume.value) !== String(vol)) musicVolume.value = String(vol);
+    try { localStorage.setItem('weddingMusicVolume', String(vol)); } catch (e) {}
+  };
+  const savedVol = (() => { try { return localStorage.getItem('weddingMusicVolume'); } catch (e) { return null; } })();
+  setVolume(savedVol !== null ? savedVol : (musicVolume ? musicVolume.value : 0.6));
+
+  if (musicVolume) {
+    musicVolume.addEventListener('input', (e) => setVolume(e.target.value));
+  }
+
+  const syncMusic = () => {
+    const playing = !bgMusic.paused;
+    musicToggle.setAttribute('aria-pressed', String(playing));
+    musicToggle.setAttribute('aria-label', playing ? 'Παύση μουσικής' : 'Αναπαραγωγή μουσικής');
+    musicToggle.classList.toggle('is-playing', playing);
+    musicToggle.textContent = playing ? '❚❚' : '♪';
+  };
+
+  const tryPlay = async () => {
+    try {
+      if (bgMusic.paused) await bgMusic.play();
+      return !bgMusic.paused;
+    } catch (e) {
+      return false;
+    }
+  };
+
+  // Attempt autoplay on visit; if the browser blocks it, start on first user interaction.
+  const startOnFirstInteraction = () => {
+    const unlock = async () => {
+      const ok = await tryPlay();
+      if (ok) {
+        ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(ev =>
+          document.removeEventListener(ev, unlock, true)
+        );
+        syncMusic();
+      }
+    };
+    ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(ev =>
+      document.addEventListener(ev, unlock, { capture: true, passive: true })
+    );
+  };
+
+  (async () => {
+    const ok = await tryPlay();
+    if (!ok) startOnFirstInteraction();
+    syncMusic();
+  })();
+
+  musicToggle.addEventListener('click', async (e) => {
+    e.stopPropagation();
+    musicToggle.disabled = true;
+    try {
+      if (bgMusic.paused) {
+        await tryPlay();
+      } else {
+        bgMusic.pause();
+      }
+    } catch (err) {
+      console.warn('Music playback failed:', err);
+      musicToggle.title = 'Δεν ήταν δυνατή η αναπαραγωγή (έλεγξε το αρχείο/ήχο)';
+      setTimeout(() => { if (musicToggle.title.startsWith('Δεν ήταν')) musicToggle.title = 'Μουσική'; }, 3500);
+    } finally {
+      musicToggle.disabled = false;
+      syncMusic();
+    }
+  });
+  bgMusic.addEventListener('error', () => {
+    console.warn('Music load error', bgMusic.error);
+    musicToggle.title = 'Δεν βρέθηκε/δεν φορτώνει το αρχείο μουσικής';
+  });
+  bgMusic.addEventListener('play', syncMusic);
+  bgMusic.addEventListener('pause', syncMusic);
+  syncMusic();
 }
 
 // ── SCROLL REVEAL ──

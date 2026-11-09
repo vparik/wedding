@@ -520,6 +520,24 @@ section.visible {
 }
 
 /* ── IBAN (gift) ── */
+.detail-card--centered {
+  text-align: center;
+}
+.detail-card--centered .iban-btn {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.detail-card--centered .iban-box {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.detail-card--centered .iban-value {
+  text-align: center;
+}
+
 .iban-btn {
   display: inline-block;
   cursor: pointer;
@@ -1223,5 +1241,86 @@ footer .footer-sub {
 
   .map-link {
     font-size: 0.68rem;
+  }
+}
+
+/* ── BACKGROUND MUSIC ── */
+.music-player {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 120;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 0.5rem;
+}
+.music-toggle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 168, 76, 0.6);
+  background: rgba(11, 30, 18, 0.78);
+  color: var(--gold-light);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+  backdrop-filter: blur(4px);
+  transition: background 0.25s, border-color 0.25s, transform 0.2s;
+  flex: 0 0 auto;
+}
+.music-toggle:hover {
+  background: rgba(42, 92, 64, 0.85);
+  border-color: var(--gold-light);
+}
+.music-toggle.is-playing {
+  background: rgba(155, 35, 53, 0.78);
+  border-color: rgba(232, 204, 122, 0.8);
+}
+.music-volume-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 168, 76, 0.45);
+  background: rgba(11, 30, 18, 0.72);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+  opacity: 0;
+  transform: translateX(6px);
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.music-player:hover .music-volume-wrap,
+.music-player:focus-within .music-volume-wrap {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.music-volume-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  white-space: nowrap;
+}
+.music-volume {
+  width: 92px;
+  accent-color: #c9a84c;
+  cursor: pointer;
+}
+@media (max-width: 640px) {
+  .music-player {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+  }
+  .music-volume-wrap {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
   }
 }
