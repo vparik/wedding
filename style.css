@@ -1342,7 +1342,8 @@ footer .footer-sub {
   transition: opacity 0.2s, transform 0.2s;
 }
 .music-player:hover .music-volume-wrap,
-.music-player:focus-within .music-volume-wrap {
+.music-player:focus-within .music-volume-wrap,
+.music-player.is-open .music-volume-wrap {
   opacity: 1;
   transform: none;
   pointer-events: auto;
@@ -1353,6 +1354,15 @@ footer .footer-sub {
   text-transform: uppercase;
   color: var(--gold-light);
   white-space: nowrap;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+.music-volume-panel {
+  display: inline-flex;
+  align-items: center;
 }
 .music-volume {
   width: 92px;
@@ -1360,13 +1370,7 @@ footer .footer-sub {
   cursor: pointer;
 }
 @media (max-width: 640px) {
-  .music-player {
-    flex-direction: column-reverse;
-    align-items: flex-end;
-  }
   .music-volume-wrap {
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
+    display: none !important;
   }
 }
