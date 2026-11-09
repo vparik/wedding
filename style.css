@@ -890,6 +890,13 @@ section.visible {
   position: relative;
   overflow: hidden;
   padding: 0.4rem 0;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.gallery-strip.dragging {
+  cursor: grabbing;
 }
 
 .gallery-track {

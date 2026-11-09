@@ -273,12 +273,99 @@ if (galleryTrack && galleryStrip) {
     clone.setAttribute('aria-hidden', 'true');
     galleryTrack.appendChild(clone);
   });
+
+  const getLoopDist = () => {
+    const halfWidth = galleryTrack.scrollWidth / 2;
+    const gap = parseFloat(getComputedStyle(galleryTrack).gap) || 0;
+    return halfWidth + gap / 2; // matches calc(-50% - gap/2)
+  };
+  const getDurationSec = () => (galleryTrack.scrollWidth / 2) / 40;
+
   const setDuration = () => {
     const halfWidth = galleryTrack.scrollWidth / 2;
     if (halfWidth) galleryTrack.style.setProperty('--scroll-duration', (halfWidth / 40) + 's');
   };
   setDuration();
   window.addEventListener('resize', setDuration);
+
+  // Draggable marquee: pause + manual translate while dragging, resume at offset on release
+  let dragX = 0;
+  let isDragging = false;
+  let didDrag = false;
+  let dragStartClientX = 0;
+  let dragStartX = 0;
+
+  const currentTranslateX = () => {
+    const t = getComputedStyle(galleryTrack).transform;
+    if (!t || t === 'none') return 0;
+    try {
+      const m = new DOMMatrixReadOnly(t);
+      return m.m41 || 0;
+    } catch (e) { return 0; }
+  };
+  const wrapX = (x) => {
+    const loop = getLoopDist();
+    if (!loop) return x;
+    // keep x in (-loop, 0]
+    let w = x % loop;
+    if (w > 0) w -= loop;
+    return w;
+  };
+  const applyDragX = (x) => {
+    dragX = wrapX(x);
+    galleryTrack.style.animation = 'none';
+    galleryTrack.style.transform = `translateX(${dragX}px)`;
+  };
+  const resumeAutoScroll = () => {
+    if (galleryStrip.classList.contains('paused')) {
+      galleryTrack.style.animation = '';
+      galleryTrack.style.transform = '';
+      return;
+    }
+    const loop = getLoopDist();
+    const dur = getDurationSec();
+    if (!loop || !dur) {
+      galleryTrack.style.animation = '';
+      galleryTrack.style.transform = '';
+      return;
+    }
+    const progress = Math.min(0.999999, Math.max(0, Math.abs(wrapX(dragX)) / loop));
+    galleryTrack.style.animation = 'none';
+    galleryTrack.style.transform = '';
+    // force reflow
+    void galleryTrack.offsetWidth;
+    galleryTrack.style.animation = `galleryScroll ${dur}s linear infinite`;
+    galleryTrack.style.animationDelay = `${-(progress * dur)}s`;
+  };
+
+  galleryStrip.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0) return; // left click / primary touch only
+    if (e.target.closest('button, a, input, select, textarea')) return;
+    isDragging = true;
+    didDrag = false;
+    dragStartClientX = e.clientX;
+    dragStartX = currentTranslateX();
+    dragX = dragStartX;
+    galleryStrip.classList.add('dragging');
+    galleryStrip.setPointerCapture(e.pointerId);
+    galleryTrack.style.animationPlayState = 'paused';
+  });
+  galleryStrip.addEventListener('pointermove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - dragStartClientX;
+    if (Math.abs(dx) > 4) didDrag = true;
+    applyDragX(dragStartX + dx);
+  });
+  const endDrag = (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    galleryStrip.classList.remove('dragging');
+    try { galleryStrip.releasePointerCapture(e.pointerId); } catch (_) {}
+    resumeAutoScroll();
+  };
+  galleryStrip.addEventListener('pointerup', endDrag);
+  galleryStrip.addEventListener('pointercancel', endDrag);
+
   const playPause = document.getElementById('gallery-playpause');
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     galleryStrip.classList.add('paused');
@@ -289,7 +376,16 @@ if (galleryTrack && galleryStrip) {
     playPause.textContent = paused ? '▶ Αναπαραγωγή' : '⏸ Παύση';
     playPause.setAttribute('aria-pressed', String(paused));
   };
-  if (playPause) playPause.addEventListener('click', () => { galleryStrip.classList.toggle('paused'); syncPlayPause(); });
+  if (playPause) playPause.addEventListener('click', () => {
+    galleryStrip.classList.toggle('paused');
+    if (galleryStrip.classList.contains('paused')) {
+      dragX = currentTranslateX();
+      galleryTrack.style.animationPlayState = 'paused';
+    } else {
+      resumeAutoScroll();
+    }
+    syncPlayPause();
+  });
   syncPlayPause();
 
   const lightbox = document.getElementById('lightbox');
@@ -305,7 +401,11 @@ if (galleryTrack && galleryStrip) {
   };
   const openLightbox = i => { if (!lightbox) return; showPhoto(i); lightbox.removeAttribute('hidden'); document.body.style.overflow = 'hidden'; };
   const closeLightbox = () => { if (!lightbox) return; lightbox.setAttribute('hidden', ''); document.body.style.overflow = ''; };
-  galleryTrack.addEventListener('click', e => { const fig = e.target.closest('.gallery-photo'); if (fig) openLightbox(Number(fig.dataset.index)); });
+  galleryTrack.addEventListener('click', e => {
+    if (didDrag) { didDrag = false; return; }
+    const fig = e.target.closest('.gallery-photo');
+    if (fig) openLightbox(Number(fig.dataset.index));
+  });
   const lbClose = document.getElementById('lightbox-close');
   const lbPrev = document.getElementById('lightbox-prev');
   const lbNext = document.getElementById('lightbox-next');
